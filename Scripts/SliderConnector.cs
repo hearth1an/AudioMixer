@@ -36,7 +36,7 @@ public class SliderConnector : MonoBehaviour
 
     public void SetVolume(float value)
     {    
-        if (!_toggleHandler.IsClicked)
+        if (_toggleHandler.IsClicked == false)
             _audioMixerGroup.audioMixer.SetFloat(_audioMixerGroup.name, Mathf.Log10(value) * _multiplyer);
     } 
 

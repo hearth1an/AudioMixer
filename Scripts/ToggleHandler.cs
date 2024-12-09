@@ -7,7 +7,7 @@ public class ToggleHandler : MonoBehaviour
 {
     private const string Master = nameof(Master);
 
-    [SerializeField] private AudioMixer _mixer;
+    [SerializeField] private AudioMixerGroup _audioMixerGroup;
 
     private Button _button;   
     
@@ -29,24 +29,24 @@ public class ToggleHandler : MonoBehaviour
 
     private void OnDisable()
     {
-        _button.onClick.RemoveAllListeners();
+        _button.onClick.RemoveListener(SwitchState);
     }    
 
     private void SwitchState()
     {          
-        if (!IsClicked && _mixer.GetFloat(Master, out float value))
+        if (!IsClicked && _audioMixerGroup.audioMixer.GetFloat(Master, out float value))
         {
             _value = value;
         }
 
         if (!IsClicked)
         {
-            _mixer.SetFloat(Master, _minValue);
+            _audioMixerGroup.audioMixer.SetFloat(Master, _minValue);
             IsClicked = true;
         }
         else
         {
-            _mixer.SetFloat(Master, _value); 
+            _audioMixerGroup.audioMixer.SetFloat(Master, _value); 
             IsClicked = false;
         }
     }
